@@ -1,6 +1,6 @@
 const express = require("express")
 const oauth = require("express-oauth2-jwt-bearer")
-const extAuthz = require('@build-security/opa-express-middleware')
+const {loadPolicy} = require("@open-policy-agent/opa-wasm")
 
 const app = express()
 

@@ -18,7 +18,7 @@ export class PrivateComponent implements OnInit {
 
     if(user){
       this.secret = "getting secret"
-      this.secret = this.api.getSecret().message
+      //this.secret = this.api.getSecret()
 
     }
     else{

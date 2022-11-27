@@ -18,6 +18,7 @@
     "@angular/platform-browser": "^14.2.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
+    "@open-policy-agent/opa-wasm": "^1.8.0",
     "keycloak-angular": "^12.1.0",
     "keycloak-js": "^19.0.3",
     "rxjs": "~7.5.0",
