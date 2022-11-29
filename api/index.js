@@ -1,10 +1,18 @@
 const express = require("express")
 const oauth = require("express-oauth2-jwt-bearer")
-const {loadPolicy} = require("@open-policy-agent/opa-wasm")
-
+const extAuthz = require('@build-security/opa-express-middleware')
 const app = express()
+const bodyParser = require("body-parser")
 
 const adminRouter = express.Router()
+
+const extAuthzMiddleware = extAuthz.authorize((req)=>({
+    port: 8181,
+    hostname: "http://localhost",
+    policyPath: "/admin",
+    enable: req.method === "GET"
+}))
+
 
 app.use(oauth2.auth({
     issuerBaseURL: "http://localhost:8089/realms/angelkey-realm",
@@ -15,10 +23,8 @@ app.use(oauth2.auth({
 
 app.use("/api/admin", adminRouter)
 
-adminRouter.use(async(req,res, next)=>{
-    //use opa
-})
+adminRouter.use(bodyParser.json)
 
-adminRouter.get("/secret", (req, res)=>{
+adminRouter.get("/secret", extAuthz.permissions('admin.read'), extAuthzMiddleware, (req, res)=>{
     res.send({status: 200, message: "you're beautiful"})
 })

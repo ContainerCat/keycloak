@@ -15,10 +15,11 @@ export class PrivateComponent implements OnInit {
 
   ngOnInit(): void {
     const user = this.keycloakService.getUsername()
+    
 
     if(user){
-      this.secret = "getting secret"
-      //this.secret = this.api.getSecret()
+      
+      this.api.getSecret()
 
     }
     else{
